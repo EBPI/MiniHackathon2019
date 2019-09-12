@@ -37,6 +37,14 @@ We have four actors present in this scenario:
    "status":"TODO"
 }
 
+{
+   "meterReadings":"123",
+   "installDate":"2019-09-12 12:34_22",
+   "model":"Slim",
+   "location":"myPlace",
+   "id":"001"
+}
+
 # How can we ensure trust in this system when it's in production?
 The owner and subcontractor both have nodes running, in order to make sure we can trust the administration of the performed tasks.
 

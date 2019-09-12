@@ -33,11 +33,11 @@ public class Meter {
 
     public static Meter fromJSONString(String json) {
         JSONObject jsonObject = new JSONObject(json);
-        String id = jsonObject.getString("id");
-        String model = jsonObject.getString("model");
-        String meterReadings = jsonObject.getString("meterReadings");
-        String location = jsonObject.getString("location");
-        String installDate = jsonObject.getString("installDate");
+        String id = jsonObject.optString("id");
+        String model = jsonObject.optString("model");
+        String meterReadings = jsonObject.optString("meterReadings");
+        String location = jsonObject.optString("location");
+        String installDate = jsonObject.optString("installDate");
 
         Meter asset = new Meter();
         asset.setId(id);

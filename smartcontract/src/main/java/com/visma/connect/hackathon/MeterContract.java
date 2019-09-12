@@ -68,7 +68,7 @@ public class MeterContract implements ContractInterface {
     }
 
     @Transaction()
-    public void updateContractTask(Context ctx, String meterId, String installDate, String location, String meterReadings, String model) {
+    public void updateMeter(Context ctx, String meterId, String installDate, String location, String meterReadings, String model) {
         boolean exists = meterExists(ctx, meterId);
         if (!exists) {
             throw new RuntimeException("The asset " + meterId + " does not exist");

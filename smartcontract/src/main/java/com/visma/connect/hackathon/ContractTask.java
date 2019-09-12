@@ -116,15 +116,15 @@ public class ContractTask {
 
     public static ContractTask fromJSONString(String json) {
         JSONObject jsonObject = new JSONObject(json);
-        String id = jsonObject.getString("id");
-        String description = jsonObject.getString("description");
-        String creationDate = jsonObject.getString("creationDate");
-        String dueDate = jsonObject.getString("dueDate");
-        String type = jsonObject.getString("type");
-        String status = jsonObject.getString("status");
-        String contractorId = jsonObject.getString("contractorId");
-        String verifierId = jsonObject.getString("verifierId");
-        String meterId = jsonObject.getString("meterId");
+        String id = jsonObject.optString("id");
+        String description = jsonObject.optString("description");
+        String creationDate = jsonObject.optString("creationDate");
+        String dueDate = jsonObject.optString("dueDate");
+        String type = jsonObject.optString("type");
+        String status = jsonObject.optString("status");
+        String contractorId = jsonObject.optString("contractorId");
+        String verifierId = jsonObject.optString("verifierId");
+        String meterId = jsonObject.optString("meterId");
 
         ContractTask asset = new ContractTask();
         asset.setId(id);

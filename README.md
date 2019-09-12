@@ -39,7 +39,7 @@ We have four actors present in this scenario:
 
 {
    "meterReadings":"123",
-   "installDate":"2019-09-12 12:34_22",
+   "installDate":"2019-09-12 12:34:22",
    "model":"Slim",
    "location":"myPlace",
    "id":"001"

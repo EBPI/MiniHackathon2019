@@ -5,16 +5,16 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/CreateProjectPledge": {
+    "/ContractTask/create": {
       "post": {
-        "x-controller-name": "CreateProjectPledgeController",
-        "x-operation-name": "createProjectPledgeCreate",
+        "x-controller-name": "ContractTaskController",
+        "x-operation-name": "CreateContractTask",
         "tags": [
-          "CreateProjectPledgeController"
+          "ContractTaskController"
         ],
         "responses": {
-          "200": {
-            "description": "ResponseMessage model instance",
+          "201": {
+            "description": "Added new ContractTask",
             "content": {
               "application/json": {
                 "schema": {
@@ -28,28 +28,50 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateProjectPledge"
+                "$ref": "#/components/schemas/ContractTask"
               }
             }
           }
         },
-        "operationId": "CreateProjectPledgeController.createProjectPledgeCreate"
+        "operationId": "ContractorTaskController.CreateContractTask"
       }
     },
-    "/ProjectPledge/{id}": {
+    "/ContractTask": {
       "get": {
-        "x-controller-name": "ProjectPledgeController",
-        "x-operation-name": "projectPledgeFindById",
+        "x-controller-name": "ContractTaskController",
+        "x-operation-name": "FindAllContractTasks",
         "tags": [
-          "ProjectPledgeController"
+          "ContractTaskController"
         ],
         "responses": {
           "200": {
-            "description": "ProjectPledge model instance",
+            "description": "List of ContractTask model instances",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectPledge"
+                  "$ref": "#/components/schemas/ContractTask"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "ContractTaskController.FindAllContractTasks"
+      }
+    },
+    "/ContractTask/{taskid}/claim/": {
+      "post": {
+        "x-controller-name": "ContractTaskController",
+        "x-operation-name": "ClaimContractTask",
+        "tags": [
+          "ContractTaskController"
+        ],
+        "responses": {
+          "201": {
+            "description": "Updated ContractTask model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
                 }
               }
             }
@@ -57,7 +79,64 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "taskid",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "contractorid",
+            "in": "request",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ContractTaskController.ClaimContractTask"
+      }
+    },
+    "/ContractTask/{taskid}/PowerMeter/{meterid}/status": {
+      "post": {
+        "x-controller-name": "ContractTaskController",
+        "x-operation-name": "StatusContractTask",
+        "tags": [
+          "ContractTaskController"
+        ],
+        "responses": {
+          "201": {
+            "description": "Updated ContractTask model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerMeter"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskid",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "meterid",
             "in": "path",
             "schema": {
               "type": "string"
@@ -65,19 +144,19 @@
             "required": true
           }
         ],
-        "operationId": "ProjectPledgeController.projectPledgeFindById"
+        "operationId": "ContractTaskController.StatusContractTask"
       }
     },
-    "/SendPledgeToGlobalCitizen": {
+    "/ContractTask/{taskid}/verify/": {
       "post": {
-        "x-controller-name": "SendPledgeToGlobalCitizenController",
-        "x-operation-name": "sendPledgeToGlobalCitizenCreate",
+        "x-controller-name": "ContractTaskController",
+        "x-operation-name": "VerifyContractTask",
         "tags": [
-          "SendPledgeToGlobalCitizenController"
+          "ContractTaskController"
         ],
         "responses": {
-          "200": {
-            "description": "ResponseMessage model instance",
+          "201": {
+            "description": "Updated ContractTask model instance",
             "content": {
               "application/json": {
                 "schema": {
@@ -87,284 +166,159 @@
             }
           }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendPledgeToGlobalCitizen"
-              }
-            }
+        "parameters": [
+          {
+            "name": "taskid",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "verifierid",
+            "in": "request",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
           }
-        },
-        "operationId": "SendPledgeToGlobalCitizenController.sendPledgeToGlobalCitizenCreate"
+        ],
+        "operationId": "ContractTaskController.VerifyContractTask"
       }
     },
-    "/SendPledgeToGovOrg": {
-      "post": {
-        "x-controller-name": "SendPledgeToGovOrgController",
-        "x-operation-name": "sendPledgeToGovOrgCreate",
+    "/ContractTask/{taskid}/PowerMeter/{meterid}": {
+      "get": {
+        "x-controller-name": "ContractTaskController",
+        "x-operation-name": "FindMeterContractTask",
         "tags": [
-          "SendPledgeToGovOrgController"
+          "ContractTaskController"
         ],
         "responses": {
           "200": {
-            "description": "ResponseMessage model instance",
+            "description": "Get meter info from ContractTask model instances",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseMessage"
+                  "$ref": "#/components/schemas/PowerMeter"
                 }
               }
             }
           }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendPledgeToGovOrg"
-              }
-            }
+        "parameters": [
+          {
+            "name": "taskid",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "meterid",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
           }
-        },
-        "operationId": "SendPledgeToGovOrgController.sendPledgeToGovOrgCreate"
+        ],
+        "operationId": "ContractTaskController.FindMeterContractTask"
       }
     },
-    "/TransferFunds": {
-      "post": {
-        "x-controller-name": "TransferFundsController",
-        "x-operation-name": "transferFundsCreate",
-        "tags": [
-          "TransferFundsController"
-        ],
-        "responses": {
-          "200": {
-            "description": "ResponseMessage model instance",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseMessage"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TransferFunds"
-              }
-            }
-          }
-        },
-        "operationId": "TransferFundsController.transferFundsCreate"
+    "servers": [
+      {
+        "url": "http://localhost:3000"
       }
-    },
-    "/UpdatePledge": {
-      "post": {
-        "x-controller-name": "UpdatePledgeController",
-        "x-operation-name": "updatePledgeCreate",
-        "tags": [
-          "UpdatePledgeController"
-        ],
-        "responses": {
-          "200": {
-            "description": "ResponseMessage model instance",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseMessage"
-                }
-              }
+    ],
+    "components": {
+      "schemas": {
+        "ResponseMessage": {
+          "title": "ResponseMessage",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "statusCode": {
+              "type": "string"
             }
-          }
+          },
+          "required": [
+            "message",
+            "statusCode"
+          ]
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdatePledge"
-              }
+        "ContractTask": {
+          "title": "ContractTask",
+          "properties": {
+            "taskId": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "creationDate": {
+              "type": "string"
+            },
+            "dueDate": {
+              "type": "string"
+            },
+            "taskType": {
+              "type": "string"
+            },
+            "taskStatus": {
+              "type": "string"
+            },
+            "contractorId": {
+              "type": "string"
+            },
+            "verifierId": {
+              "type": "string"
+            },
+            "meterId": {
+              "type": "string"
             }
-          }
+          },
+          "required": [
+            "taskId",
+            "description",
+            "creationDate",
+            "dueDate",
+            "taskType",
+            "taskStatus",
+            "contractorId",
+            "verifierId",
+            "meterId"
+          ]
         },
-        "operationId": "UpdatePledgeController.updatePledgeCreate"
-      }
-    }
-  },
-  "servers": [
-    {
-      "url": "http://localhost:3000"
-    }
-  ],
-  "components": {
-    "schemas": {
-      "ResponseMessage": {
-        "title": "ResponseMessage",
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "statusCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "message",
-          "statusCode"
-        ]
-      },
-      "CreateProjectPledge": {
-        "title": "CreateProjectPledge",
-        "properties": {
-          "aidOrg": {
-            "type": "string"
-          },
-          "pledgeNumber": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "fundsRequired": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "aidOrg",
-          "pledgeNumber",
-          "name",
-          "description",
-          "fundsRequired"
-        ]
-      },
-      "Funding": {
-        "title": "Funding",
-        "properties": {
-          "fundingType": {
-            "type": "string"
-          },
-          "nextFundingDueInDays": {
-            "type": "number"
-          },
-          "approvedFunding": {
-            "type": "number"
-          },
-          "totalFundsReceived": {
-            "type": "number"
-          },
-          "fundsPerInstallment": {
-            "type": "number"
-          },
-          "govOrgId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "fundingType",
-          "nextFundingDueInDays",
-          "approvedFunding",
-          "totalFundsReceived",
-          "fundsPerInstallment",
-          "govOrgId"
-        ]
-      },
-      "ProjectPledge": {
-        "title": "ProjectPledge",
-        "properties": {
-          "pledgeId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "decription": {
-            "type": "string"
-          },
-          "fundsRequired": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "aidOrg": {
-            "type": "string"
-          },
-          "funds": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Funding"
+        "PowerMeter": {
+          "title": "PowerMeter",
+          "properties": {
+            "meterId": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "meterReadings": {
+              "type": "string"
+            },
+            "meterLocation": {
+              "type": "string"
+            },
+            "installedDate": {
+              "type": "string"
             }
-          }
-        },
-        "required": [
-          "pledgeId",
-          "name",
-          "decription",
-          "fundsRequired",
-          "status",
-          "aidOrg"
-        ]
-      },
-      "SendPledgeToGlobalCitizen": {
-        "title": "SendPledgeToGlobalCitizen",
-        "properties": {
-          "pledgeId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "pledgeId"
-        ]
-      },
-      "SendPledgeToGovOrg": {
-        "title": "SendPledgeToGovOrg",
-        "properties": {
-          "pledgeId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "pledgeId"
-        ]
-      },
-      "TransferFunds": {
-        "title": "TransferFunds",
-        "properties": {
-          "pledgeId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "pledgeId"
-        ]
-      },
-      "UpdatePledge": {
-        "title": "UpdatePledge",
-        "properties": {
-          "pledgeId": {
-            "type": "string"
           },
-          "fundingType": {
-            "type": "string"
-          },
-          "approvedFunding": {
-            "type": "string"
-          },
-          "fundsPerInstallment": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "pledgeId",
-          "fundingType",
-          "approvedFunding",
-          "fundsPerInstallment"
-        ]
+          "required": [
+            "meterId",
+            "model",
+            "meterReadings",
+            "meterLocation",
+            "installedDate"
+          ]
+        }
       }
     }
   }

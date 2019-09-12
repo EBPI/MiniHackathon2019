@@ -1,0 +1,379 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "LoopBack Application",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/CreateProjectPledge": {
+      "post": {
+        "x-controller-name": "CreateProjectPledgeController",
+        "x-operation-name": "createProjectPledgeCreate",
+        "tags": [
+          "CreateProjectPledgeController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ResponseMessage model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectPledge"
+              }
+            }
+          }
+        },
+        "operationId": "CreateProjectPledgeController.createProjectPledgeCreate"
+      }
+    },
+    "/ProjectPledge/{id}": {
+      "get": {
+        "x-controller-name": "ProjectPledgeController",
+        "x-operation-name": "projectPledgeFindById",
+        "tags": [
+          "ProjectPledgeController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProjectPledge model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectPledge"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ProjectPledgeController.projectPledgeFindById"
+      }
+    },
+    "/SendPledgeToGlobalCitizen": {
+      "post": {
+        "x-controller-name": "SendPledgeToGlobalCitizenController",
+        "x-operation-name": "sendPledgeToGlobalCitizenCreate",
+        "tags": [
+          "SendPledgeToGlobalCitizenController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ResponseMessage model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendPledgeToGlobalCitizen"
+              }
+            }
+          }
+        },
+        "operationId": "SendPledgeToGlobalCitizenController.sendPledgeToGlobalCitizenCreate"
+      }
+    },
+    "/SendPledgeToGovOrg": {
+      "post": {
+        "x-controller-name": "SendPledgeToGovOrgController",
+        "x-operation-name": "sendPledgeToGovOrgCreate",
+        "tags": [
+          "SendPledgeToGovOrgController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ResponseMessage model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendPledgeToGovOrg"
+              }
+            }
+          }
+        },
+        "operationId": "SendPledgeToGovOrgController.sendPledgeToGovOrgCreate"
+      }
+    },
+    "/TransferFunds": {
+      "post": {
+        "x-controller-name": "TransferFundsController",
+        "x-operation-name": "transferFundsCreate",
+        "tags": [
+          "TransferFundsController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ResponseMessage model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransferFunds"
+              }
+            }
+          }
+        },
+        "operationId": "TransferFundsController.transferFundsCreate"
+      }
+    },
+    "/UpdatePledge": {
+      "post": {
+        "x-controller-name": "UpdatePledgeController",
+        "x-operation-name": "updatePledgeCreate",
+        "tags": [
+          "UpdatePledgeController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ResponseMessage model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePledge"
+              }
+            }
+          }
+        },
+        "operationId": "UpdatePledgeController.updatePledgeCreate"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ResponseMessage": {
+        "title": "ResponseMessage",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "statusCode"
+        ]
+      },
+      "ContractTask": {
+        "title": "ContractTask",
+        "properties": {
+          "taskId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string"
+          },
+          "dueDate": {
+            "type": "string"
+          },
+          "taskType": {
+            "type": "string"
+          },
+          "taskStatus": {
+            "type": "string"
+          },
+          "contractorId": {
+            "type": "string"
+          },
+          "verifierId": {
+            "type": "string"
+          },
+          "meterId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "taskId",
+          "description",
+          "creationDate",
+          "dueDate",
+          "taskType",
+          "taskStatus",
+          "contractorId",
+          "verifierId",
+          "meterId"
+        ]
+      },
+      "PowerMeter": {
+        "title": "PowerMeter",
+        "properties": {
+          "meterId": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "meterReadings": {
+            "type": "string"
+          },
+          "meterLocation": {
+            "type": "string"
+          },
+          "installedDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meterId",
+          "model",
+          "meterReadings",
+          "meterLocation",
+          "installedDate"
+        ]
+      },
+      "ProjectPledge": {
+        "title": "ProjectPledge",
+        "properties": {
+          "pledgeId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "decription": {
+            "type": "string"
+          },
+          "fundsRequired": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "aidOrg": {
+            "type": "string"
+          },
+          "funds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Funding"
+            }
+          }
+        },
+        "required": [
+          "pledgeId",
+          "name",
+          "decription",
+          "fundsRequired",
+          "status",
+          "aidOrg"
+        ]
+      },
+      "SendPledgeToGlobalCitizen": {
+        "title": "SendPledgeToGlobalCitizen",
+        "properties": {
+          "pledgeId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pledgeId"
+        ]
+      },
+      "SendPledgeToGovOrg": {
+        "title": "SendPledgeToGovOrg",
+        "properties": {
+          "pledgeId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pledgeId"
+        ]
+      },
+      "TransferFunds": {
+        "title": "TransferFunds",
+        "properties": {
+          "pledgeId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pledgeId"
+        ]
+      },
+      "UpdateContractTask": {
+        "title": "UpdateContractTask",
+        "properties": {
+          "taskId": {
+            "type": "string"
+          },
+          "taskStatus": {
+            "type": "string"
+          },
+          "contractorId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "taskId",
+          "taskStatus",
+          "contractorId"
+        ]
+      }
+    }
+  }
+}

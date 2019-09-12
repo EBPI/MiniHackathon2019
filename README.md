@@ -21,6 +21,7 @@ We have four actors present in this scenario:
     
 # Entities
 
+![minihackathon-tabledesign.png](minihackathon-tabledesign.png)
 
 # How can we ensure trust in this system when it's in production?
 The owner and subcontractor both have nodes running, in order to make sure we can trust the administration of the performed tasks.

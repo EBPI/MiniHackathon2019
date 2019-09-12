@@ -23,6 +23,20 @@ We have four actors present in this scenario:
 
 ![minihackathon-tabledesign.png](minihackathon-tabledesign.png)
 
+# jsons
+
+{
+   "verifierId":"Jan Jansen",
+   "contractorId":"abc",
+   "meterId":"meter002",
+   "dueDate":"2019-10-12 00:00:00",
+   "description":"Description",
+   "id":"task001",
+   "creationDate":"2019-09-12 13:15:000",
+   "type":"REPLACE",
+   "status":"TODO"
+}
+
 # How can we ensure trust in this system when it's in production?
 The owner and subcontractor both have nodes running, in order to make sure we can trust the administration of the performed tasks.
 

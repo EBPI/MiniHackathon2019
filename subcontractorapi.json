@@ -58,7 +58,7 @@
         "operationId": "ContractTaskController.FindAllContractTasks"
       }
     },
-    "/ContractTask/{taskid}/claim/": {
+    "/ContractTask/{taskid}/claim/{contractorid}": {
       "post": {
         "x-controller-name": "ContractTaskController",
         "x-operation-name": "ClaimContractTask",
@@ -88,7 +88,7 @@
           },
           {
             "name": "contractorid",
-            "in": "request",
+            "in": "path",
             "schema": {
               "type": "string"
             },
@@ -147,7 +147,7 @@
         "operationId": "ContractTaskController.StatusContractTask"
       }
     },
-    "/ContractTask/{taskid}/verify/": {
+    "/ContractTask/{taskid}/verify/{verifierid}": {
       "post": {
         "x-controller-name": "ContractTaskController",
         "x-operation-name": "VerifyContractTask",
@@ -177,7 +177,7 @@
           },
           {
             "name": "verifierid",
-            "in": "request",
+            "in": "path",
             "schema": {
               "type": "string"
             },
@@ -226,99 +226,99 @@
         ],
         "operationId": "ContractTaskController.FindMeterContractTask"
       }
-    },
-    "servers": [
-      {
-        "url": "http://localhost:3000"
-      }
-    ],
-    "components": {
-      "schemas": {
-        "ResponseMessage": {
-          "title": "ResponseMessage",
-          "properties": {
-            "message": {
-              "type": "string"
-            },
-            "statusCode": {
-              "type": "string"
-            }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ResponseMessage": {
+        "title": "ResponseMessage",
+        "properties": {
+          "message": {
+            "type": "string"
           },
-          "required": [
-            "message",
-            "statusCode"
-          ]
+          "statusCode": {
+            "type": "string"
+          }
         },
-        "ContractTask": {
-          "title": "ContractTask",
-          "properties": {
-            "taskId": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "creationDate": {
-              "type": "string"
-            },
-            "dueDate": {
-              "type": "string"
-            },
-            "taskType": {
-              "type": "string"
-            },
-            "taskStatus": {
-              "type": "string"
-            },
-            "contractorId": {
-              "type": "string"
-            },
-            "verifierId": {
-              "type": "string"
-            },
-            "meterId": {
-              "type": "string"
-            }
+        "required": [
+          "message",
+          "statusCode"
+        ]
+      },
+      "ContractTask": {
+        "title": "ContractTask",
+        "properties": {
+          "taskId": {
+            "type": "string"
           },
-          "required": [
-            "taskId",
-            "description",
-            "creationDate",
-            "dueDate",
-            "taskType",
-            "taskStatus",
-            "contractorId",
-            "verifierId",
-            "meterId"
-          ]
+          "description": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string"
+          },
+          "dueDate": {
+            "type": "string"
+          },
+          "taskType": {
+            "type": "string"
+          },
+          "taskStatus": {
+            "type": "string"
+          },
+          "contractorId": {
+            "type": "string"
+          },
+          "verifierId": {
+            "type": "string"
+          },
+          "meterId": {
+            "type": "string"
+          }
         },
-        "PowerMeter": {
-          "title": "PowerMeter",
-          "properties": {
-            "meterId": {
-              "type": "string"
-            },
-            "model": {
-              "type": "string"
-            },
-            "meterReadings": {
-              "type": "string"
-            },
-            "meterLocation": {
-              "type": "string"
-            },
-            "installedDate": {
-              "type": "string"
-            }
+        "required": [
+          "taskId",
+          "description",
+          "creationDate",
+          "dueDate",
+          "taskType",
+          "taskStatus",
+          "contractorId",
+          "verifierId",
+          "meterId"
+        ]
+      },
+      "PowerMeter": {
+        "title": "PowerMeter",
+        "properties": {
+          "meterId": {
+            "type": "string"
           },
-          "required": [
-            "meterId",
-            "model",
-            "meterReadings",
-            "meterLocation",
-            "installedDate"
-          ]
-        }
+          "model": {
+            "type": "string"
+          },
+          "meterReadings": {
+            "type": "string"
+          },
+          "meterLocation": {
+            "type": "string"
+          },
+          "installedDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "meterId",
+          "model",
+          "meterReadings",
+          "meterLocation",
+          "installedDate"
+        ]
       }
     }
   }

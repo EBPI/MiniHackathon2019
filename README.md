@@ -47,6 +47,9 @@ Meter
    "id":"001"
 }
 
+# api
+View subcontractorapi.json in root folder for the API (controller) defs. These will be generated into a functional Awagger API.
+
 # How can we ensure trust in this system when it's in production?
 The owner and subcontractor both have nodes running, in order to make sure we can trust the administration of the performed tasks.
 

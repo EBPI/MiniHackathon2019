@@ -25,6 +25,7 @@ We have four actors present in this scenario:
 
 # jsons
 
+ContractTask
 {
    "verifierId":"Jan Jansen",
    "contractorId":"abc",
@@ -37,6 +38,7 @@ We have four actors present in this scenario:
    "status":"TODO"
 }
 
+Meter
 {
    "meterReadings":"123",
    "installDate":"2019-09-12 12:34:22",

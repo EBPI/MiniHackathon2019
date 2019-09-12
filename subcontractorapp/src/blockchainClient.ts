@@ -61,8 +61,9 @@ export module BlockChainModule {
 
     async createContractTask(args: any) {
       // Calling transaction1 transaction in the smart contract
-      let response = await args.contract.submitTransaction(args.function, args.taskId, args.description, args.creationDate, args.dueDate, args.taskType, args.taskStatus, args.contractorId, args.verifierId, args.meterId);
-
+      //String contractTaskId, String creationDate, String description, String dueDate, String contractorId,
+      //String meterId, String status, String type, String verifierId
+      let response = await args.contract.submitTransaction(args.function, args.taskId, args.creationDate, args.description, args.dueDate, args.contractorId, args.meterId, args.taskStatus, args.taskType, args.verifierId);
       return response;
     }
 

@@ -14,10 +14,13 @@ We want to solve the hassle of registration and possible human errors by using H
 
 # Actors
 We have four actors present in this scenario:
-    • The owner (grid operator): Issues tasks to a subcontractor and closes them when done.
+    • The contractor (grid operator): Issues tasks to a subcontractor and closes them when done.
     • The subcontractor (mechanic): registers the given task as done, with the required information (power meter readings).
     • The end-user (house owner/renter): Verifies performed task by the subcontractor.
     • Optional: The registration (energy company): Views task information (power meter stands).
+    
+# Entities
+
 
 # How can we ensure trust in this system when it's in production?
 The owner and subcontractor both have nodes running, in order to make sure we can trust the administration of the performed tasks.
@@ -25,5 +28,5 @@ The owner and subcontractor both have nodes running, in order to make sure we ca
 # What will be built?
 The application will consist of the following:
     • Node-RED (for a simple frontend to be used by the end-users)
-    • Java Springboot (as backend service between the frontend and ledger)
-    • Running Hyperledger Fabric (with chaincode, probably written in Java (or Golang if we feel like it))
+    • Running (parly loopback generated) Typescript Swagger-UI (as backend service between the frontend and ledger)
+    • Running Hyperledger Fabric (with chaincode written in Java

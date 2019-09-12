@@ -59,9 +59,9 @@ export module BlockChainModule {
       return response;
     }
 
-    async createProjectPledge(args: any) {
+    async createContractTask(args: any) {
       // Calling transaction1 transaction in the smart contract
-      let response = await args.contract.submitTransaction(args.function, args.aidOrg, args.pledgeNumber, args.name, args.desc, args.fundsRequired);
+      let response = await args.contract.submitTransaction(args.function, args.taskId, args.description, args.creationDate, args.dueDate, args.taskType, args.taskStatus, args.contractorId, args.verifierId, args.meterId);
 
       return response;
     }

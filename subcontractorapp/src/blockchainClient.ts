@@ -36,7 +36,7 @@ export module BlockChainModule {
         console.log('Connected to mychannel. ');
 
         // Get the contract we have installed on the peer
-        const contract = await network.getContract('global-citizen');
+        const contract = await network.getContract('subcontractorledger');
 
         let networkObj = {
           contract: contract,

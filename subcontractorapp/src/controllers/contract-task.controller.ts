@@ -1,27 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {operation, param, requestBody} from '@loopback/rest';
-import {ContractTask} from '../models/contract-task.model';
-import {ResponseMessage} from '../models/response-message.model';
-import {PowerMeter} from '../models/power-meter.model';
+import { operation, param, requestBody } from '@loopback/rest';
+import { ContractTaskCreate } from '../models/contract-task-create.model';
+import { ContractTask } from '../models/contract-task.model';
+import { ResponseMessage } from '../models/response-message.model';
+import { PowerMeter } from '../models/power-meter.model';
 import { BlockChainModule } from '../blockchainClient';
 let blockchainClient = new BlockChainModule.BlockchainClient();
 /**
  * The controller class is generated from OpenAPI spec with operations tagged
  * by ContractTaskController
- * 
+ *
  */
 export class ContractTaskController {
-  constructor() {}
+  constructor() { }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param _requestBody 
+   * @param _requestBody
    * @returns Added new ContractTask
    */
   @operation('post', '/ContractTask/create')
-  async CreateContractTask(@requestBody() _requestBody: ContractTask): Promise<ResponseMessage> {
+  async CreateContractTask(@requestBody() _requestBody: ContractTaskCreate): Promise<ResponseMessage> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
@@ -30,14 +31,14 @@ export class ContractTaskController {
           function: 'createContractTask',
           contract: networkObj.contract,
           taskId: _requestBody.taskId,
-          description: _requestBody.description,
           creationDate: _requestBody.creationDate,
+          description: _requestBody.description,
           dueDate: _requestBody.dueDate,
+          contractorId: "",
+          meterId: "",
+          taskStatus: "TODO",
           taskType: _requestBody.taskType,
-          taskStatus: _requestBody.taskStatus,
-          contractorid: _requestBody.contractorId,
-          verifierid: _requestBody.verifierId,
-          meterid: _requestBody.meterId
+          verifierId: ""
         };
         await blockchainClient.createContractTask(inputObj);
       } else {
@@ -57,8 +58,8 @@ export class ContractTaskController {
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
    * @returns List of ContractTask model instances
    */
@@ -68,15 +69,15 @@ export class ContractTaskController {
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param taskid 
-   * @param contractorid 
+   * @param taskid
+   * @param contractorid
    * @returns Updated ContractTask model instance
    */
   @operation('post', '/ContractTask/{taskid}/claim/{contractorid}')
-  async ClaimContractTask(@param({name: 'taskid', in: 'path'}) taskid: string, @param({name: 'contractorid', in: 'path'}) contractorid: string): Promise<ResponseMessage> {
+  async ClaimContractTask(@param({ name: 'taskid', in: 'path' }) taskid: string, @param({ name: 'contractorid', in: 'path' }) contractorid: string): Promise<ResponseMessage> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
@@ -105,16 +106,16 @@ export class ContractTaskController {
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param _requestBody 
-   * @param taskid 
-   * @param meterid 
+   * @param _requestBody
+   * @param taskid
+   * @param meterid
    * @returns Updated ContractTask model instance
    */
   @operation('post', '/ContractTask/{taskid}/PowerMeter/{meterid}/status')
-  async StatusContractTask(@requestBody() _requestBody: PowerMeter, @param({name: 'taskid', in: 'path'}) taskid: string, @param({name: 'meterid', in: 'path'}) meterid: string): Promise<ResponseMessage> {
+  async StatusContractTask(@requestBody() _requestBody: PowerMeter, @param({ name: 'taskid', in: 'path' }) taskid: string, @param({ name: 'meterid', in: 'path' }) meterid: string): Promise<ResponseMessage> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
@@ -147,15 +148,15 @@ export class ContractTaskController {
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param taskid 
-   * @param verifierid 
+   * @param taskid
+   * @param verifierid
    * @returns Updated ContractTask model instance
    */
   @operation('post', '/ContractTask/{taskid}/verify/{verifierid}')
-  async VerifyContractTask(@param({name: 'taskid', in: 'path'}) taskid: string, @param({name: 'verifierid', in: 'path'}) verifierid: string): Promise<ResponseMessage> {
+  async VerifyContractTask(@param({ name: 'taskid', in: 'path' }) taskid: string, @param({ name: 'verifierid', in: 'path' }) verifierid: string): Promise<ResponseMessage> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
@@ -184,15 +185,15 @@ export class ContractTaskController {
   }
 
   /**
-   * 
-   * 
+   *
+   *
 
-   * @param taskid 
-   * @param meterid 
+   * @param taskid
+   * @param meterid
    * @returns Get meter info from ContractTask model instances
    */
   @operation('get', '/ContractTask/{taskid}/PowerMeter/{meterid}')
-  async FindMeterContractTask(@param({name: 'taskid', in: 'path'}) taskid: string, @param({name: 'meterid', in: 'path'}) meterid: string): Promise<PowerMeter> {
+  async FindMeterContractTask(@param({ name: 'taskid', in: 'path' }) taskid: string, @param({ name: 'meterid', in: 'path' }) meterid: string): Promise<PowerMeter> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {

@@ -26,6 +26,9 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components
 
+# Locally installed Fabric credentials
+local_fabric/wallet/
+
 # node-waf configuration
 .lock-wscript
 
@@ -62,3 +65,6 @@ typings/
 
 # Cache used by TypeScript's incremental build
 *.tsbuildinfo
+
+# package-lock file since it just causes merge conflicts
+subcontractorapp/package-lock.json

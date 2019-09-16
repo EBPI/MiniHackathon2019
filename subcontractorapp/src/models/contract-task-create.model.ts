@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { model, property } from '@loopback/repository';
 
-/**
- * The model class is generated from OpenAPI schema - ContractTask
- * ContractTask
- */
 @model({ name: 'ContractTaskCreate' })
 export class ContractTaskCreate {
   constructor(data?: Partial<ContractTaskCreate>) {
@@ -42,6 +38,5 @@ export class ContractTaskCreate {
    */
   @property({ required: true })
   taskType: string;
-
 }
 

@@ -67,35 +67,22 @@ export module BlockChainModule {
       return response;
     }
 
-    async sendPledgeToGlobalCitizen(args: any) {
+    async updateContractTask(args: any) {
       // Calling transaction1 transaction in the smart contract
-      let response = await args.contract.submitTransaction(args.function, args.pledgeId);
-
+      //String contractTaskId, String creationDate, String description, String dueDate, String contractorId,
+      //String meterId, String status, String type, String verifierId
+      let response = await args.contract.submitTransaction(args.function, args.taskId, args.creationDate, args.description, args.dueDate, args.contractorId, args.meterId, args.taskStatus, args.taskType, args.verifierId);
       return response;
     }
 
-    async sendPledgeToGovOrg(args: any) {
+    async createMeter(args: any) {
       // Calling transaction1 transaction in the smart contract
-      let response = await args.contract.submitTransaction(args.function, args.pledgeId);
-
+      //String meterId, String installDate, String location, String meterReadings, String model
+      let response = await args.contract.submitTransaction(args.function, args.meterId, args.installDate, args.location, args.meterReadings, args.model);
       return response;
     }
 
-    async updatePledge(args: any) {
-      // Calling transaction1 transaction in the smart contract
-      let response = await args.contract.submitTransaction(args.function, args.pledgeId, args.fundingType, args.approvedFunding, args.fundsPerInstallment);
-
-      return response;
-    }
-
-    async transferFunds(args: any) {
-      // Calling transaction1 transaction in the smart contract
-      let response = await args.contract.submitTransaction(args.function, args.pledgeId);
-
-      return response;
-    }
-
-    async queryProject(args: any) {
+    async queryObjectById(args: any) {
       // Calling transaction1 transaction in the smart contract
       let response = await args.contract.evaluateTransaction(args.function, args.id);
       console.log(JSON.parse(response));

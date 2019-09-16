@@ -34,10 +34,10 @@ export class ContractTaskController {
           creationDate: _requestBody.creationDate,
           description: _requestBody.description,
           dueDate: _requestBody.dueDate,
-          contractorId: "",
           meterId: "",
           taskStatus: "TODO",
           taskType: _requestBody.taskType,
+          contractorId: "",
           verifierId: ""
         };
         await blockchainClient.createContractTask(inputObj);
@@ -63,32 +63,56 @@ export class ContractTaskController {
 
    * @returns List of ContractTask model instances
    */
-  @operation('get', '/ContractTask')
-  async FindAllContractTasks(): Promise<ContractTask> {
-    throw new Error('Not implemented');
+  @operation('get', '/ContractTask/{taskid}')
+  async FindContractTaskById(@param({ name: 'taskid', in: 'path' }) taskid: string): Promise<ContractTask> {
+    try {
+      let networkObj = await blockchainClient.connectToNetwork();
+      if (networkObj && !(networkObj.stack)) {
+        let inputObj = {
+          function: 'readContractTask',
+          contract: networkObj.contract,
+          id: taskid
+        };
+        return await blockchainClient.queryObjectById(inputObj);
+      } else {
+        // Couldn't connect to network, so passing this object on to catch clause...
+        throw new Error(networkObj.message);
+      }
+    } catch (error) {
+      return error;
+    }
   }
 
   /**
-   *
-   *
+  *
+  *
 
-   * @param taskid
-   * @param contractorid
-   * @returns Updated ContractTask model instance
-   */
+  * @param taskid
+  * @param contractorid
+  * @returns Updated ContractTask model instance
+  */
   @operation('post', '/ContractTask/{taskid}/claim/{contractorid}')
   async ClaimContractTask(@param({ name: 'taskid', in: 'path' }) taskid: string, @param({ name: 'contractorid', in: 'path' }) contractorid: string): Promise<ResponseMessage> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
-        // Construct data object that serves as
-        let inputObj = {
-          function: 'claimContractTask',
+        // Todo: find way to convert and read to ContractTask or define multiple methods
+        let contractTask = await this.FindContractTaskById(taskid);
+
+        let updateObj = {
+          function: 'updateContractTask',
           contract: networkObj.contract,
-          taskid: taskid,
-          contractorid: contractorid
+          taskId: contractTask.id,
+          creationDate: contractTask.creationDate,
+          description: contractTask.description,
+          dueDate: contractTask.dueDate,
+          meterId: contractTask.meterId,
+          taskStatus: "CLAIMED",
+          taskType: contractTask.type,
+          contractorId: contractorid,
+          verifierId: contractTask.verifierId
         };
-        //await blockchainClient.createContractTask(inputObj);
+        await blockchainClient.updateContractTask(updateObj);
       } else {
         // Couldn't connect to network, so passing this object on to catch clause...
         throw new Error(networkObj.message);
@@ -114,23 +138,38 @@ export class ContractTaskController {
    * @param meterid
    * @returns Updated ContractTask model instance
    */
-  @operation('post', '/ContractTask/{taskid}/PowerMeter/{meterid}/status')
-  async StatusContractTask(@requestBody() _requestBody: PowerMeter, @param({ name: 'taskid', in: 'path' }) taskid: string, @param({ name: 'meterid', in: 'path' }) meterid: string): Promise<ResponseMessage> {
+  @operation('post', '/ContractTask/{taskid}/PowerMeter/mark')
+  async ContractTask(@requestBody() _requestBody: PowerMeter, @param({ name: 'taskid', in: 'path' }) taskid: string): Promise<ResponseMessage> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
-        // Construct data object that serves as
-        let inputObj = {
-          function: 'StatusContractTask',
+        let contractTask = await this.FindContractTaskById(taskid);
+
+        let createMeterObj = {
+          function: 'createMeter',
           contract: networkObj.contract,
-          taskid: taskid,
-          meterid: meterid,
-          model: _requestBody.model,
+          meterId: _requestBody.id,
+          installDate: _requestBody.installDate,
+          location: _requestBody.location,
           meterReadings: _requestBody.meterReadings,
-          meterLocation: _requestBody.meterLocation,
-          installedDate: _requestBody.installedDate
+          model: _requestBody.model
+        }
+        await blockchainClient.createMeter(createMeterObj);
+
+        let updateTaskObj = {
+          function: 'updateContractTask',
+          contract: networkObj.contract,
+          taskId: contractTask.id,
+          creationDate: contractTask.creationDate,
+          description: contractTask.description,
+          dueDate: contractTask.dueDate,
+          meterId: _requestBody.id,
+          taskStatus: "AWAITING VERIFICATION",
+          taskType: contractTask.type,
+          contractorId: contractTask.contractorId,
+          verifierId: contractTask.verifierId
         };
-        //await blockchainClient.createContractTask(inputObj);
+        await blockchainClient.updateContractTask(updateTaskObj);
       } else {
         // Couldn't connect to network, so passing this object on to catch clause...
         throw new Error(networkObj.message);
@@ -160,14 +199,22 @@ export class ContractTaskController {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
-        // Construct data object that serves as
-        let inputObj = {
-          function: 'contractTask',
+        let contractTask = await this.FindContractTaskById(taskid);
+
+        let updateTaskObj = {
+          function: 'updateContractTask',
           contract: networkObj.contract,
-          taskId: taskid,
-          verifierid: verifierid
+          taskId: contractTask.id,
+          creationDate: contractTask.creationDate,
+          description: contractTask.description,
+          dueDate: contractTask.dueDate,
+          meterId: contractTask.meterId,
+          taskStatus: "DONE",
+          taskType: contractTask.type,
+          contractorId: contractTask.contractorId,
+          verifierId: verifierid
         };
-        //await blockchainClient.createContractTask(inputObj);
+        await blockchainClient.updateContractTask(updateTaskObj);
       } else {
         // Couldn't connect to network, so passing this object on to catch clause...
         throw new Error(networkObj.message);
@@ -188,22 +235,20 @@ export class ContractTaskController {
    *
    *
 
-   * @param taskid
    * @param meterid
    * @returns Get meter info from ContractTask model instances
    */
-  @operation('get', '/ContractTask/{taskid}/PowerMeter/{meterid}')
-  async FindMeterContractTask(@param({ name: 'taskid', in: 'path' }) taskid: string, @param({ name: 'meterid', in: 'path' }) meterid: string): Promise<PowerMeter> {
+  @operation('get', '/PowerMeter/{meterid}')
+  async FindMeterById(@param({ name: 'meterid', in: 'path' }) meterid: string): Promise<PowerMeter> {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
       if (networkObj && !(networkObj.stack)) {
         let inputObj = {
-          function: 'readProjectPledge',
+          function: 'readMeter',
           contract: networkObj.contract,
-          taskid: taskid,
-          meterid: meterid
+          id: meterid
         };
-        return await blockchainClient.queryProject(inputObj);
+        return await blockchainClient.queryObjectById(inputObj);
       } else {
         // Couldn't connect to network, so passing this object on to catch clause...
         throw new Error(networkObj.message);
@@ -212,6 +257,5 @@ export class ContractTaskController {
       return error;
     }
   }
-
 }
 

@@ -29,7 +29,7 @@ export class ContractTaskController {
         // Construct data object that serves as
         let inputObj = {
           function: 'createContractTask',
-          contract: networkObj.contract,
+          contract: networkObj.contractTasksContract,
           taskId: _requestBody.taskId,
           creationDate: _requestBody.creationDate,
           description: _requestBody.description,
@@ -70,7 +70,7 @@ export class ContractTaskController {
       if (networkObj && !(networkObj.stack)) {
         let inputObj = {
           function: 'readContractTask',
-          contract: networkObj.contract,
+          contract: networkObj.contractTasksContract,
           id: taskid
         };
         return await blockchainClient.queryObjectById(inputObj);
@@ -101,7 +101,7 @@ export class ContractTaskController {
 
         let updateObj = {
           function: 'updateContractTask',
-          contract: networkObj.contract,
+          contract: networkObj.contractTasksContract,
           taskId: contractTask.id,
           creationDate: contractTask.creationDate,
           description: contractTask.description,
@@ -147,7 +147,7 @@ export class ContractTaskController {
 
         let createMeterObj = {
           function: 'createMeter',
-          contract: networkObj.contract,
+          contract: networkObj.meterContract,
           meterId: _requestBody.id,
           installDate: _requestBody.installDate,
           location: _requestBody.location,
@@ -158,7 +158,7 @@ export class ContractTaskController {
 
         let updateTaskObj = {
           function: 'updateContractTask',
-          contract: networkObj.contract,
+          contract: networkObj.contractTasksContract,
           taskId: contractTask.id,
           creationDate: contractTask.creationDate,
           description: contractTask.description,
@@ -203,7 +203,7 @@ export class ContractTaskController {
 
         let updateTaskObj = {
           function: 'updateContractTask',
-          contract: networkObj.contract,
+          contract: networkObj.contractTasksContract,
           taskId: contractTask.id,
           creationDate: contractTask.creationDate,
           description: contractTask.description,
@@ -245,7 +245,7 @@ export class ContractTaskController {
       if (networkObj && !(networkObj.stack)) {
         let inputObj = {
           function: 'readMeter',
-          contract: networkObj.contract,
+          contract: networkObj.meterContract,
           id: meterid
         };
         return await blockchainClient.queryObjectById(inputObj);

@@ -9,15 +9,11 @@ import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
 import org.hyperledger.fabric.contract.annotation.Contact;
 import org.hyperledger.fabric.contract.annotation.Contract;
-import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Info;
 import org.hyperledger.fabric.contract.annotation.License;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 
-@Contract(name = "MeterContract",
-        info = @Info(title = "Meter contract", description = "My Smart Contract", version = "0.0.1", license = @License(name = "Apache-2.0", url = ""),
-                contact = @Contact(email = "smartcontract@example.com", name = "smartcontract", url = "http://smartcontract.me")))
-@Default
+@Contract(name = "MeterContract", info = @Info(title = "Meter contract", description = "My Smart Contract", version = "0.0.1", license = @License(name = "Apache-2.0", url = ""), contact = @Contact(email = "smartcontract@example.com", name = "smartcontract", url = "http://smartcontract.me")))
 public class MeterContract implements ContractInterface {
     private static final String ASSET_NAME = "METER";
     private static final String ASSET_PREFIX = ASSET_NAME + ":";
@@ -26,7 +22,7 @@ public class MeterContract implements ContractInterface {
 
     }
 
-    @Transaction()
+    @Transaction(submit = false)
     public boolean meterExists(Context ctx, String meterId) {
         byte[] buffer = ctx.getStub().getState(toKey(meterId));
         return buffer != null && buffer.length > 0;
@@ -37,7 +33,8 @@ public class MeterContract implements ContractInterface {
     }
 
     @Transaction()
-    public void createMeter(Context ctx, String meterId, String installDate, String location, String meterReadings, String model) {
+    public void createMeter(Context ctx, String meterId, String installDate, String location, String meterReadings,
+            String model) {
         boolean exists = meterExists(ctx, meterId);
         if (exists) {
             throw new RuntimeException("The asset " + meterId + " already exists");
@@ -45,7 +42,8 @@ public class MeterContract implements ContractInterface {
         save(ctx, meterId, installDate, location, meterReadings, model);
     }
 
-    private void save(Context ctx, String meterId, String installDate, String location, String meterReadings, String model) {
+    private void save(Context ctx, String meterId, String installDate, String location, String meterReadings,
+            String model) {
         Meter m = new Meter();
         m.setId(meterId);
         m.setInstallDate(installDate);
@@ -56,7 +54,7 @@ public class MeterContract implements ContractInterface {
         ctx.getStub().putState(toKey(meterId), m.toJSONString().getBytes(UTF_8));
     }
 
-    @Transaction()
+    @Transaction(submit = false)
     public Meter readMeter(Context ctx, String meterId) {
         boolean exists = meterExists(ctx, meterId);
         if (!exists) {
@@ -68,7 +66,8 @@ public class MeterContract implements ContractInterface {
     }
 
     @Transaction()
-    public void updateMeter(Context ctx, String meterId, String installDate, String location, String meterReadings, String model) {
+    public void updateMeter(Context ctx, String meterId, String installDate, String location, String meterReadings,
+            String model) {
         boolean exists = meterExists(ctx, meterId);
         if (!exists) {
             throw new RuntimeException("The asset " + meterId + " does not exist");

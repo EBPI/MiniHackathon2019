@@ -35,11 +35,15 @@ export module BlockChainModule {
 
         console.log('Connected to mychannel. ');
 
-        // Get the contract we have installed on the peer
-        const contract = await network.getContract('subcontractorledger');
+        // Get the contract we have installed on the peer (default is for ContractTasks)
+        const contractDefault = await network.getContract('subcontractorledger');
+
+        // Get the contract we have installed on the peer (for Meters)
+        const contractMeter = await network.getContract('subcontractorledger', 'MeterContract');
 
         let networkObj = {
-          contract: contract,
+          contractTasksContract: contractDefault,
+          meterContract: contractMeter,
           network: network
         };
 
